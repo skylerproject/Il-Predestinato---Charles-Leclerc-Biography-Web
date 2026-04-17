@@ -1,0 +1,1409 @@
+/* ================================================================
+   CHARLES LECLERC — "Il Predestinato" Digital Experience
+   styles.css  ·  Light Mode Luxury Editorial
+   ================================================================ */
+
+/* ── Fonts ────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap');
+
+/* ── Design Tokens ────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --bg-primary:     #F8F9FA;
+  --bg-pure:        #FFFFFF;
+  --bg-monaco-blue: #EEF2F7;
+  --text-primary:   #0A0A0A;
+  --text-secondary: #555555;
+  --text-muted:     #999999;
+  --text-ghost:     #C8C8C8;
+  --accent:         #E10600;
+  --accent-soft:    rgba(225, 6, 0, 0.08);
+  --border:         #E0E0E0;
+  --border-light:   #F0F0F0;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'Space Grotesk', 'DM Mono', 'Courier New', monospace;
+
+  /* Curves */
+  --ease-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth:   cubic-bezier(0.45, 0, 0.15, 1);
+  --ease-snappy:   cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Spacing */
+  --section-pad:   clamp(5rem, 10vh, 10rem);
+  --gutter:        clamp(1.5rem, 4vw, 3rem);
+}
+
+/* ── Reset ────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.lenis, html.lenis body { height: auto; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none;
+  position: relative;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+ul, ol { list-style: none; }
+button { border: none; background: none; cursor: none; font: inherit; }
+
+::selection {
+  background: var(--accent);
+  color: var(--bg-pure);
+}
+
+/* ── Grainy Overlay (2% noise) ────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ================================================================
+   CUSTOM CURSOR — Race Pulse
+   ================================================================ */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.cursor__dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s var(--ease-expo),
+              height 0.35s var(--ease-expo),
+              background 0.3s ease;
+}
+
+.cursor__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(225, 6, 0, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s var(--ease-expo),
+              height 0.4s var(--ease-expo),
+              border-color 0.3s ease,
+              opacity 0.3s ease;
+}
+
+.cursor__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0;
+  font-weight: 700;
+  color: var(--bg-pure);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  white-space: nowrap;
+  transition: font-size 0.35s var(--ease-expo),
+              opacity 0.3s ease;
+}
+
+/* Hover state */
+.cursor.is-hovering .cursor__dot {
+  width: 64px;
+  height: 64px;
+}
+
+.cursor.is-hovering .cursor__ring {
+  width: 64px;
+  height: 64px;
+  border-color: transparent;
+  opacity: 0;
+}
+
+.cursor.is-hovering .cursor__label {
+  font-size: 0.65rem;
+  opacity: 1;
+}
+
+/* ================================================================
+   VERTICAL SIDE TEXT — "IL PREDESTINATO"
+   ================================================================ */
+.vertical-text {
+  position: fixed;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  z-index: 90;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--text-ghost);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.vertical-text::before {
+  content: '●';
+  color: var(--accent);
+  margin-right: 0.75em;
+  font-size: 0.5em;
+  vertical-align: middle;
+}
+
+/* ================================================================
+   PRELOADER
+   ================================================================ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-pure);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.preloader__brand {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.preloader__counter {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.preloader__bar {
+  width: 180px;
+  height: 1px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.5rem var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.nav.is-scrolled {
+  background: rgba(248, 249, 250, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.nav__logo {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.nav__logo .accent {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.nav__menu {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.nav__link {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.5s var(--ease-expo);
+}
+
+.nav__link:hover {
+  color: var(--text-primary);
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+/* ================================================================
+   SECTION 1 — HERO
+   ================================================================ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 750px;
+  display: flex;
+  align-items: flex-end;
+  padding: 5rem var(--gutter);
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  mix-blend-mode: multiply;
+  filter: contrast(1.15) grayscale(0.1);
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 3;
+  max-width: 1000px;
+}
+
+.hero__overtitle {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.hero__overtitle span {
+  display: inline-block;
+  transform: translateY(100%);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 13vw, 12rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.hero__title .char {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero__number {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 5rem;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Scroll CTA */
+.hero__scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero__scroll-text {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 48px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: pulse-down 2.2s var(--ease-smooth) infinite;
+}
+
+@keyframes pulse-down {
+  0%   { top: -100%; }
+  50%  { top: 0; }
+  100% { top: 100%; }
+}
+
+/* ================================================================
+   SHARED — Section Utilities
+   ================================================================ */
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-tag::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+.section-body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.section-body strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.section-body em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ================================================================
+   SECTION 2 — TIMELINE (Horizontal Scroll)
+   ================================================================ */
+.timeline {
+  background: var(--bg-pure);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.timeline__header {
+  padding: var(--section-pad) var(--gutter) 2rem;
+  max-width: 700px;
+}
+
+.timeline__intro {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-top: 1.5rem;
+}
+
+.timeline__wrapper {
+  position: relative;
+  height: 100vh;
+}
+
+.timeline__track {
+  display: flex;
+  height: 100%;
+  width: fit-content;
+  will-change: transform;
+}
+
+/* Individual Timeline Card */
+.timeline__card {
+  flex: 0 0 auto;
+  width: 80vw;
+  max-width: 1100px;
+  height: 100%;
+  padding: 3rem var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 5rem);
+  border-right: 1px solid var(--border-light);
+  position: relative;
+}
+
+.timeline__card:last-child { border-right: none; }
+
+.timeline__card-media {
+  flex: 0 0 48%;
+  height: 65%;
+  display: grid;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.timeline__card-media.dual {
+  grid-template-rows: 1fr 1fr;
+}
+
+.timeline__card-media.single {
+  grid-template-rows: 1fr;
+}
+
+.timeline__card-img-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.timeline__card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform 1s var(--ease-expo);
+}
+
+.timeline__card:hover .timeline__card-img-wrap img {
+  transform: scale(1.0);
+}
+
+.timeline__card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.timeline__era {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--border-light);
+  letter-spacing: -0.03em;
+}
+
+.timeline__card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.timeline__card-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  max-width: 400px;
+}
+
+.timeline__card-text strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Progress Bar */
+.timeline__progress {
+  position: absolute;
+  bottom: 2rem;
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 5;
+}
+
+.timeline__progress-track {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.timeline__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.1s linear;
+}
+
+.timeline__progress-year {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ================================================================
+   SECTION 3 — MONACO (Breaking the Curse)
+   ================================================================ */
+.monaco {
+  padding: var(--section-pad) var(--gutter);
+  background: var(--bg-pure);
+  border-top: 1px solid var(--border);
+  transition: background-color 1.2s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.monaco.is-blue {
+  background-color: var(--bg-monaco-blue);
+}
+
+.monaco__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.monaco__narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.monaco__chapter {
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.4s ease;
+}
+
+.monaco__chapter.active {
+  border-left-color: var(--accent);
+}
+
+.monaco__chapter-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.monaco__chapter-text {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-secondary);
+}
+
+.monaco__media {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.monaco__image-wrap {
+  overflow: hidden;
+  position: relative;
+}
+
+.monaco__image-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* YouTube Embed */
+.monaco__video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  background: var(--text-primary);
+}
+
+.monaco__video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.monaco__video-thumb {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.monaco__video-thumb.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.monaco__video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.monaco__play-btn {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: transform 0.4s var(--ease-expo);
+}
+
+.monaco__play-btn:hover {
+  transform: scale(1.15);
+}
+
+.monaco__play-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--bg-pure);
+  margin-left: 3px;
+}
+
+/* ================================================================
+   STATS — The Numbers
+   ================================================================ */
+.stats {
+  padding: var(--section-pad) var(--gutter);
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+}
+
+.stats__inner {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.stats__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: 5rem;
+}
+
+.stats__portrait {
+  overflow: hidden;
+  position: relative;
+  max-height: 500px;
+}
+
+.stats__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.stat {
+  padding: 3rem 2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat:hover {
+  background: var(--bg-pure);
+}
+
+.stat:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+}
+
+.stat__number {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: baseline;
+}
+
+.stat__plus {
+  font-size: 0.5em;
+  color: var(--accent);
+  margin-left: 0.1em;
+}
+
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+/* ================================================================
+   SPLIT REVEAL — Hamilton vs Leclerc
+   ================================================================ */
+.split-reveal {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--text-primary);
+}
+
+.split-reveal__side {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+}
+
+.split-reveal__side--left {
+  left: 0;
+  clip-path: inset(0 0 0 0);
+}
+
+.split-reveal__side--right {
+  right: 0;
+  clip-path: inset(0 0 0 0);
+}
+
+.split-reveal__side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.3) contrast(1.1);
+}
+
+.split-reveal__driver-name {
+  position: absolute;
+  bottom: 3rem;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--bg-pure);
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.split-reveal__side--left .split-reveal__driver-name { left: 2rem; }
+.split-reveal__side--right .split-reveal__driver-name { right: 2rem; }
+
+.split-reveal__center {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.split-reveal__center img {
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.split-reveal__center-label {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: var(--bg-pure);
+  white-space: nowrap;
+  opacity: 0;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.6);
+}
+
+/* ================================================================
+   BEYOND THE TRACK — Personal
+   ================================================================ */
+.personal {
+  padding: var(--section-pad) var(--gutter);
+  background: var(--bg-pure);
+  border-top: 1px solid var(--border);
+}
+
+.personal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.personal__image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.personal__image-wrap img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transform: scale(1.05);
+  opacity: 0;
+  transition: transform 1.2s var(--ease-expo), opacity 0.8s ease;
+}
+
+.personal__image-wrap.is-revealed img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.personal__image-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg-pure);
+  z-index: 2;
+  transform-origin: right;
+  transform: scaleX(1);
+  transition: transform 1s var(--ease-expo) 0.15s;
+}
+
+.personal__image-wrap.is-revealed::before {
+  transform: scaleX(0);
+}
+
+.personal__frame {
+  position: absolute;
+  inset: -10px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+.personal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.personal__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.personal__text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.personal__text em {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Piano Waveform Visualizer */
+.piano-visualizer {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.piano-visualizer__label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.piano-visualizer__label .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+.piano-visualizer__canvas {
+  width: 100%;
+  height: 60px;
+  display: block;
+}
+
+.personal__tags {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.personal__tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.personal__tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ================================================================
+   HELMETS — Equipment Gallery (3D Tilt)
+   ================================================================ */
+.helmets {
+  padding: var(--section-pad) var(--gutter);
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+}
+
+.helmets__header {
+  max-width: 600px;
+  margin-bottom: 4rem;
+}
+
+.helmets__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.helmets__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.helmet-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: var(--bg-pure);
+  border: 1px solid var(--border-light);
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transition: box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.helmet-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+.helmet-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-expo);
+}
+
+.helmet-card:hover img {
+  transform: scale(1.06);
+}
+
+.helmet-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.4) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.helmet-card:hover .helmet-card__overlay {
+  opacity: 1;
+}
+
+.helmet-card__view {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg-pure);
+}
+
+/* ================================================================
+   HORIZONTAL GALLERY — (Monaco / SF26)
+   ================================================================ */
+.hgallery {
+  overflow: hidden;
+  background: var(--bg-pure);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.hgallery__wrapper {
+  position: relative;
+  height: 80vh;
+  min-height: 500px;
+}
+
+.hgallery__track {
+  display: flex;
+  height: 100%;
+  width: fit-content;
+  will-change: transform;
+}
+
+.hgallery__slide {
+  flex: 0 0 auto;
+  width: 70vw;
+  max-width: 900px;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hgallery__slide img {
+  max-width: 100%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.hgallery__slide-caption {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer {
+  padding: 4rem var(--gutter);
+  background: var(--text-primary);
+  color: var(--bg-pure);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.footer__brand .accent { color: var(--accent); }
+
+.footer__copy {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.footer__links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer__link {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.footer__link:hover { color: var(--accent); }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 1024px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .helmets__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .monaco__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .stats__header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .split-reveal__driver-name {
+    font-size: 1.5rem;
+  }
+
+  .timeline__card {
+    width: 90vw;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .timeline__card-media {
+    flex: 0 0 auto;
+    height: 280px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav__menu { display: none; }
+  .vertical-text { display: none; }
+
+  .hero {
+    padding: 3rem var(--gutter);
+  }
+
+  .hero__number {
+    display: none;
+  }
+
+  .personal__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .split-reveal {
+    height: 70vh;
+  }
+
+  .stats__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .helmets__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cursor { display: none !important; }
+  body { cursor: auto; }
+}
+
+@media (max-width: 480px) {
+  .stats__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .helmets__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hgallery__slide {
+    width: 90vw;
+  }
+}

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Charles Leclerc — Il Predestinato. A premium digital experience chronicling the journey from Monégasque prodigy to Ferrari's crown jewel and the SF26 era.">
+  <meta name="theme-color" content="#F8F9FA">
+  <title>Charles Leclerc — Il Predestinato</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- GSAP 3 + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg"
+    href="assets/Charles Leclerc helmet for 2026 %23formulaone %23f1 %23charlesleclerc16 %23scuderriaferrari %23helmets.jpg">
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CURSOR — Race Pulse
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+    <span class="cursor__label">16</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       VERTICAL SIDE TEXT
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="vertical-text" aria-hidden="true">Il Predestinato</div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PRELOADER
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="preloader" aria-hidden="true">
+    <p class="preloader__brand">Scuderia Ferrari</p>
+    <div class="preloader__counter">0</div>
+    <div class="preloader__bar">
+      <div class="preloader__fill"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════ -->
+  <nav class="nav" id="main-nav">
+    <a href="#hero" class="nav__logo" data-cursor="CL">
+      CL<span class="accent">16</span>
+    </a>
+    <div class="nav__menu">
+      <a href="#timeline" class="nav__link" data-cursor="→">Timeline</a>
+      <a href="#monaco" class="nav__link" data-cursor="→">Monaco</a>
+      <a href="#stats" class="nav__link" data-cursor="→">Numbers</a>
+      <a href="#personal" class="nav__link" data-cursor="→">Personal</a>
+      <a href="#helmets" class="nav__link" data-cursor="→">Helmets</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECTION 1 — HERO
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- Background -->
+    <div class="hero__bg">
+      <img src="assets/hero-bg.png" alt="Charles Leclerc portrait in Ferrari race suit" loading="eager"
+        fetchpriority="high">
+    </div>
+
+    <!-- Content -->
+    <div class="hero__content">
+      <div class="hero__overtitle">
+        <span>Scuderia Ferrari · N°16 · Monte Carlo</span>
+      </div>
+
+      <h1 class="hero__title" aria-label="Leclerc"><!--
+        Each character wrapped for staggered reveal
+        --><span class="char">L</span><span class="char">E</span><span class="char">C</span><span
+          class="char">L</span><span class="char">E</span><span class="char">R</span><span class="char">C</span></h1>
+
+      <p class="hero__subtitle">The Prince of Monaco. The Heart of Maranello.</p>
+    </div>
+
+    <!-- Watermark Number -->
+    <div class="hero__number" aria-hidden="true">16</div>
+
+    <!-- Scroll CTA -->
+    <div class="hero__scroll">
+      <span class="hero__scroll-text">Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECTION 2 — TIMELINE (Horizontal Scroll)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="timeline" id="timeline">
+
+    <div class="timeline__header">
+      <p class="section-tag">Biography</p>
+      <h2 class="section-heading">The Road to Greatness</h2>
+      <p class="timeline__intro">
+        From the karting tracks of the Côte d'Azur to the hallowed pitlane at Maranello —
+        every chapter of Charles Leclerc's story was written in speed, loss, and defiance.
+      </p>
+    </div>
+
+    <div class="timeline__wrapper">
+      <div class="timeline__track">
+
+        <!-- ── Card 1: The Early Spark (1997-2013) ────────────── -->
+        <div class="timeline__card">
+          <div class="timeline__card-media dual">
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/CL & Max.jpg" alt="Young Charles Leclerc karting alongside Max Verstappen"
+                loading="lazy">
+            </div>
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/CL & Herve.png" alt="Leclerc with Ocon during karting era" loading="lazy">
+            </div>
+          </div>
+          <div class="timeline__card-body">
+            <div class="timeline__era">1997–2013</div>
+            <h3 class="timeline__card-title">The Early Spark</h3>
+            <p class="timeline__card-text">
+              Born in Monte Carlo on <strong>October 16, 1997</strong>, Charles grew up in
+              the shadow of the Monaco Grand Prix barriers. Mentored by the late
+              <strong>Jules Bianchi</strong> — his godfather, hero, and guardian angel —
+              young Leclerc dominated European karting circuits alongside future rival
+              Max Verstappen. The fire was lit early. Tragedy would only sharpen it:
+              the loss of Jules in 2015, and his father <strong>Hervé</strong> in 2017,
+              forged an unbreakable will to race not just for himself — but for them.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Card 2: Dominating the Ladder (2016-2017) ──────── -->
+        <div class="timeline__card">
+          <div class="timeline__card-media dual">
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/CL F2 Champion.jpg" alt="Charles Leclerc celebrates F2 Championship" loading="lazy">
+            </div>
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/CL F2.jpg" alt="Leclerc racing in Formula 2" loading="lazy">
+            </div>
+          </div>
+          <div class="timeline__card-body">
+            <div class="timeline__era">2016–2017</div>
+            <h3 class="timeline__card-title">Dominating the Ladder</h3>
+            <p class="timeline__card-text">
+              A masterclass ascent through the junior formulae. <strong>GP3 Series Champion</strong>
+              in 2016, followed by a devastating <strong>Formula 2 Championship</strong>
+              campaign in 2017 — seven victories, relentless pace, zero doubt.
+              The Ferrari Driver Academy's prize asset graduated with honours.
+              Maranello was watching. The phone rang.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Card 3: The Dream & The Struggle (2018-2022) ───── -->
+        <div class="timeline__card">
+          <div class="timeline__card-media dual">
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/CL in race suit.webp" alt="Charles Leclerc in Ferrari overalls" loading="lazy">
+            </div>
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/charles_leclerc-13.webp" alt="Leclerc in the cockpit" loading="lazy">
+            </div>
+          </div>
+          <div class="timeline__card-body">
+            <div class="timeline__era">2018–2022</div>
+            <h3 class="timeline__card-title">The Dream &amp; The Struggle</h3>
+            <p class="timeline__card-text">
+              A debut season at <strong>Sauber</strong> turned every head in the paddock.
+              Ferrari called — and Leclerc delivered immediately. The legendary
+              <strong>2019 Monza victory</strong> saw 100,000 tifosi erupt as the 21-year-old
+              conquered the Temple of Speed. But the years that followed tested him:
+              unreliable machinery, strategic errors, near-misses. Through it all,
+              he never stopped pushing. The struggle only deepened his legend.
+            </p>
+          </div>
+        </div>
+
+        <!-- ── Card 4: The Superteam Era (2025-2026) ──────────── -->
+        <div class="timeline__card">
+          <div class="timeline__card-media dual">
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/Lewis-Hamilton-Charles-Leclerc-Ferrari-3.webp"
+                alt="Lewis Hamilton and Charles Leclerc in Ferrari gear" loading="lazy">
+            </div>
+            <div class="timeline__card-img-wrap" data-cursor="View">
+              <img src="assets/SF26 on track (LH44).webp" alt="The Ferrari SF26 on track" loading="lazy">
+            </div>
+          </div>
+          <div class="timeline__card-body">
+            <div class="timeline__era">2025–2026</div>
+            <h3 class="timeline__card-title">The Superteam Era</h3>
+            <p class="timeline__card-text">
+              History arrives at Maranello. <strong>Lewis Hamilton</strong> — seven-time
+              World Champion — joins Leclerc to form the most formidable driver pairing
+              in a generation. The <strong>SF26</strong> is Ferrari's boldest technical
+              statement in years: new aerodynamic regulations, refined power, and the
+              collective hunger of a team that has waited too long. The championship
+              drought must end. Two lions share one cage.
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /timeline__track -->
+
+      <!-- Progress -->
+      <div class="timeline__progress">
+        <span class="timeline__progress-year">1997</span>
+        <div class="timeline__progress-track">
+          <div class="timeline__progress-fill"></div>
+        </div>
+        <span class="timeline__progress-year">2026</span>
+      </div>
+
+    </div><!-- /timeline__wrapper -->
+  </section>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SECTION 3 — MONACO (Breaking the Curse)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="monaco" id="monaco">
+    <div class="monaco__grid">
+
+      <!-- Narrative Column -->
+      <div class="monaco__narrative">
+        <p class="section-tag">Monaco</p>
+        <h2 class="section-heading">Breaking the Curse</h2>
+
+        <div class="monaco__chapter">
+          <h3 class="monaco__chapter-title">The Ghost of Monaco (2017–2023)</h3>
+          <p class="monaco__chapter-text">
+            For years, Monte Carlo was a theatre of heartbreak for its favourite son.
+            Mechanical failures, strategic disasters, and a crash from pole position
+            in 2021 that felt written by the gods of cruel irony. Charles Leclerc
+            couldn't win at home — and the weight of it was visible.
+            Year after year, the same question: <em>will he ever win here?</em>
+          </p>
+        </div>
+
+        <div class="monaco__chapter">
+          <h3 class="monaco__chapter-title">Redemption (2024)</h3>
+          <p class="monaco__chapter-text">
+            <strong>May 26, 2024</strong>. Rain and thunder. A race of raw nerves.
+            Charles Leclerc crossed the line in first place at the
+            <strong>Monaco Grand Prix</strong> — the curse finally, devastatingly, broken.
+            Tears behind the visor. The radio crackled: <em>"We did it. For Dad.
+              For Jules."</em> An entire principality wept with him. Then came
+            <strong>Monza again</strong> — confirming that 2024 was his year of reckoning.
+          </p>
+        </div>
+      </div>
+
+      <!-- Media Column -->
+      <div class="monaco__media">
+        <!-- Victory Image -->
+        <div class="monaco__image-wrap">
+          <img src="assets/cl monaco gp win.webp" alt="Charles Leclerc wins the 2024 Monaco Grand Prix" loading="lazy">
+        </div>
+
+        <!-- YouTube Embed (Lazy) — Radio Reaction -->
+        <div class="monaco__video">
+          <div class="monaco__video-thumb" data-cursor="Play">
+            <img src="assets/thumbnail monaco gp 2024 radio.jpg" alt="Leclerc radio reaction after Monaco GP 2024 win"
+              loading="lazy">
+            <button class="monaco__play-btn" aria-label="Play video" data-cursor="▶">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </button>
+          </div>
+          <iframe data-src="https://www.youtube.com/embed/tM5fKpxRqDs?rel=0" title="Leclerc Monaco GP 2024 Radio"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+
+        <!-- Celebration -->
+        <div class="monaco__image-wrap">
+          <img src="assets/cl monaco gp celebration.webp" alt="Leclerc celebrates with the Monaco crowd" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       STATS — The Numbers
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="stats" id="stats">
+    <div class="stats__inner">
+
+      <div class="stats__header">
+        <div>
+          <p class="section-tag">Statistics</p>
+          <h2 class="section-heading">The Numbers</h2>
+          <p class="section-body" style="margin-top: 1rem; max-width: 450px;">
+            A legacy written in data. Every pole, every podium, every fastest lap —
+            the relentless accumulation of a future world champion.
+          </p>
+        </div>
+        <div class="stats__portrait">
+          <img src="assets/Leclerc-About-02-Official-Pic-1.jpg" alt="Official portrait of Charles Leclerc"
+            loading="lazy">
+        </div>
+      </div>
+
+      <div class="stats__grid">
+        <div class="stat">
+          <div class="stat__number">
+            <span data-count="8">0</span><span class="stat__plus">+</span>
+          </div>
+          <div class="stat__label">Grand Prix Wins</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">
+            <span data-count="26">0</span><span class="stat__plus">+</span>
+          </div>
+          <div class="stat__label">Pole Positions</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">
+            <span data-count="41">0</span><span class="stat__plus">+</span>
+          </div>
+          <div class="stat__label">Podium Finishes</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">
+            <span data-count="10">0</span><span class="stat__plus">+</span>
+          </div>
+          <div class="stat__label">Fastest Laps</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SPLIT REVEAL — Hamilton vs Leclerc → SF26
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="split-reveal" aria-label="Hamilton and Leclerc reveal the SF26">
+
+    <!-- Left — Leclerc -->
+    <div class="split-reveal__side split-reveal__side--left">
+      <img src="assets/charles_leclerc-13.webp" alt="Charles Leclerc — determined gaze" loading="lazy">
+      <span class="split-reveal__driver-name">Leclerc</span>
+    </div>
+
+    <!-- Right — Hamilton -->
+    <div class="split-reveal__side split-reveal__side--right">
+      <img src="assets/Lewis-Hamilton-Charles-Leclerc-Ferrari-3.webp" alt="Lewis Hamilton in Ferrari" loading="lazy">
+      <span class="split-reveal__driver-name">Hamilton</span>
+    </div>
+
+    <!-- Center — SF26 (revealed on scroll) -->
+    <div class="split-reveal__center">
+      <img src="assets/SF26 LH & CL.webp" alt="The Ferrari SF26 with both drivers" loading="lazy">
+    </div>
+    <span class="split-reveal__center-label">SF26 — Forza Ferrari</span>
+
+  </section>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       BEYOND THE TRACK — Personal
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="personal" id="personal">
+    <div class="personal__grid">
+
+      <!-- Wedding Portrait -->
+      <div class="personal__image-wrap" data-cursor="CL">
+        <img src="assets/CL and Alexandra Wedding.jpeg"
+          alt="Charles Leclerc and Alexandra Saint Mleux on their wedding day" loading="lazy">
+        <div class="personal__frame"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="personal__content">
+        <p class="section-tag">Beyond the Track</p>
+        <h2 class="personal__heading">More Than<br>a Racing Driver</h2>
+
+        <p class="personal__text">
+          Away from the circuits, Charles is a man of quiet depth.
+          A <em>pianist</em> who finds solace in Chopin and Einaudi after
+          a bruising qualifying session. A face of <em>haute couture</em>,
+          gracing campaigns for Giorgio Armani with the same poise he carries
+          through the chicanes of his home streets.
+        </p>
+
+        <p class="personal__text">
+          In February 28, 2026, Charles reached his most personal milestone — his
+          <em>wedding with Alexandra Saint Mleux</em>, a celebration of love
+          that mirrored the triumph on track. On the streets where he races,
+          he now walks with the partner who has been his anchor through
+          every triumph and heartbreak. The couple kept the event private,
+          featuring close friends and family, in Monaco of course.
+          And were spotted leaving in a vintage 1957 Ferrari 250 Testa Rossa.
+        </p>
+
+        <!-- Piano Waveform Visualizer -->
+        <div class="piano-visualizer">
+          <div class="piano-visualizer__label">
+            <span class="dot"></span> Now Playing · Leclerc Piano Sessions
+          </div>
+          <canvas class="piano-visualizer__canvas"></canvas>
+        </div>
+
+        <div class="personal__tags">
+          <span class="personal__tag" data-cursor="♪">Piano</span>
+          <span class="personal__tag" data-cursor="✦">Fashion</span>
+          <span class="personal__tag" data-cursor="◆">Monaco</span>
+          <span class="personal__tag" data-cursor="♥">Family</span>
+          <span class="personal__tag" data-cursor="★">Philanthropy</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HORIZONTAL GALLERY — Monaco + SF26
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="hgallery">
+    <div class="hgallery__wrapper">
+      <div class="hgallery__track">
+
+        <div class="hgallery__slide" data-cursor="Drag">
+          <img src="assets/monaco.png" alt="Monaco coat of arms" loading="lazy">
+          <span class="hgallery__slide-caption">Principality of Monaco — Home</span>
+        </div>
+
+        <div class="hgallery__slide" data-cursor="Drag">
+          <img src="assets/SF26.jpg" alt="The Ferrari SF26" loading="lazy">
+          <span class="hgallery__slide-caption">Ferrari SF26 — The Machine</span>
+        </div>
+
+        <div class="hgallery__slide" data-cursor="Drag">
+          <img src="assets/SF26 a.jpeg" alt="SF26 detail" loading="lazy">
+          <span class="hgallery__slide-caption">SF26 — Engineering Perfection</span>
+        </div>
+
+        <div class="hgallery__slide" data-cursor="Drag">
+          <img src="assets/CL looks at the SF26.jpg" alt="Leclerc inspects the SF26" loading="lazy">
+          <span class="hgallery__slide-caption">The Gaze — Man Meets Machine</span>
+        </div>
+
+        <div class="hgallery__slide" data-cursor="Drag">
+          <img src="assets/669688070_18101250023511878_8645369199216024397_n.jpg" alt="Leclerc social post"
+            loading="lazy">
+          <span class="hgallery__slide-caption">For the Tifosi</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HELMETS — Equipment Gallery (3D Tilt)
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="helmets" id="helmets">
+    <div class="helmets__header">
+      <p class="section-tag">Identity</p>
+      <h2 class="section-heading">The 2026 Helmet</h2>
+      <p class="helmets__subtitle">
+        Every driver's helmet tells a story. Leclerc's 2026 lid carries the red of Ferrari,
+        the crest of Monaco, and the memory of those who paved his path.
+      </p>
+    </div>
+
+    <div class="helmets__grid">
+      <div class="helmet-card" data-cursor="3D">
+        <img
+          src="assets/Charles Leclerc helmet for 2026 %23formulaone %23f1 %23charlesleclerc16 %23scuderriaferrari %23helmets.jpg"
+          alt="Leclerc 2026 helmet — front view" loading="lazy">
+        <div class="helmet-card__overlay">
+          <span class="helmet-card__view">Front View</span>
+        </div>
+      </div>
+
+      <div class="helmet-card" data-cursor="3D">
+        <img
+          src="assets/Charles Leclerc helmet for 2026 %23formulaone %23f1 %23charlesleclerc16 %23scuderriaferrari %23helmets (1).jpg"
+          alt="Leclerc 2026 helmet — side view" loading="lazy">
+        <div class="helmet-card__overlay">
+          <span class="helmet-card__view">Side View</span>
+        </div>
+      </div>
+
+      <div class="helmet-card" data-cursor="3D">
+        <img
+          src="assets/Charles Leclerc helmet for 2026 %23formulaone %23f1 %23charlesleclerc16 %23scuderriaferrari %23helmets (2).jpg"
+          alt="Leclerc 2026 helmet — top view" loading="lazy">
+        <div class="helmet-card__overlay">
+          <span class="helmet-card__view">Top View</span>
+        </div>
+      </div>
+
+      <div class="helmet-card" data-cursor="3D">
+        <img
+          src="assets/Charles Leclerc helmet for 2026 %23formulaone %23f1 %23charlesleclerc16 %23scuderriaferrari %23helmets (3).jpg"
+          alt="Leclerc 2026 helmet — rear view" loading="lazy">
+        <div class="helmet-card__overlay">
+          <span class="helmet-card__view">Rear View</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__left">
+      <div class="footer__brand">CL<span class="accent">16</span></div>
+      <p class="footer__copy">&copy; 2026 — Il Predestinato · A Digital Tribute</p>
+    </div>
+    <div class="footer__links">
+      <a href="#hero" class="footer__link" data-cursor="↑">Top</a>
+      <a href="#timeline" class="footer__link" data-cursor="→">Timeline</a>
+      <a href="#monaco" class="footer__link" data-cursor="→">Monaco</a>
+      <a href="#stats" class="footer__link" data-cursor="→">Numbers</a>
+      <a href="#personal" class="footer__link" data-cursor="→">Personal</a>
+      <a href="#helmets" class="footer__link" data-cursor="→">Helmets</a>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>
